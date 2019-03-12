@@ -1,11 +1,31 @@
 import {DOM} from "./base";
+import {Fraction} from "fractional";
 
+const formatAmount = amount => {
+    if (amount) {
+        //amount = 2.5 --> 2 1/2
+        //amount = 0.5 --> 1/2
+        const [int, dec] = amount.toString().split(".").map(item => Number.parseInt(item, 10));
+
+        if (!dec) return amount;
+
+        if (int === 0) {
+            const fr = new Fraction(amount);
+            return `${fr.numerator}/${fr.denominator}`;
+        } else {
+            const fr = new Fraction(amount - int);
+            return `${int} ${fr.numerator}/${fr.denominator}`;
+        }
+    }
+
+    return "?";
+};
 const createIngredient = ingreObj => `
     <li class="recipe__item">
         <svg class="recipe__icon">
             <use href="img/icons.svg#icon-check"></use>
         </svg>
-        <div class="recipe__count">${ingreObj.amount}</div>
+        <div class="recipe__count">${formatAmount(ingreObj.amount)}</div>
         <div class="recipe__ingredient">
             <span class="recipe__unit">${ingreObj.unit}</span>
             ${ingreObj.ingredient}
