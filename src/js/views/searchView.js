@@ -80,3 +80,11 @@ export const clearSearch = () => {
     DOM.searchResultList.innerHTML = "";
     DOM.searchResultPages.innerHTML = ""
 };
+export const highlighSelected = id => {
+    const resultsArr = Array.from(document.querySelectorAll(".results__link--active"));
+    resultsArr.forEach(item => {
+        item.classList.remove("results__link--active");
+    });
+
+    document.querySelector(`a[href="#${id}"]`).classList.add("results__link--active");
+}

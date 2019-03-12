@@ -59,6 +59,9 @@ const updateRecipe = async () => {
         recipeView.clearRecipe();
         renderLoader(DOM.recipe);
         
+        //highlight selected search
+        if (APP.search) searchView.highlighSelected(id);
+
         //Create new recipe object
         APP.recipe = new Recipe(id);
 
