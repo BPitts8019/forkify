@@ -7,7 +7,6 @@ export default class Search {
     }
 
     //*** Search for Recipes ***//
-    //    API key: cbb06d3ac12a1a809d5820f2df9248ff
     //    URL: https://www.food2fork.com/api/search
     //    
     //    //*** Search Parameters ***//

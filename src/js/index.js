@@ -105,4 +105,15 @@ DOM.searchResultPages.addEventListener("click", event => {
     }
 });
 
+DOM.recipe.addEventListener("click", event => {
+    if (event.target.matches(".btn-decrease, .btn-decrease *") && APP.recipe.servings > 1) {
+        console.log("Minus 1 Serving");
+        APP.recipe.updateServings("dec");
+    } else if (event.target.matches(".btn-increase, .btn-increase *")) {
+        console.log("Plus 1 Serving");
+        APP.recipe.updateServings("inc");
+    }
+
+    console.log(APP.recipe);
+});
 console.log("Application started.");

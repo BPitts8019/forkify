@@ -8,7 +8,6 @@ export default class Recipe {
 
     //https://www.food2fork.com/api/get?key=YOUR_API_KEY&rId=35382
     //*** Get Recipe Details ***//
-    //    API key: cbb06d3ac12a1a809d5820f2df9248ff
     //    URL: https://www.food2fork.com/api/get
     //    
     //    //*** Request Parameters ***//
@@ -120,5 +119,17 @@ export default class Recipe {
         });
 
         this.ingredients = newIngredients;
+    }
+
+    updateServings (type) {
+        //Servings
+        const newServings = (type === "dec")? this.servings - 1 : this.servings + 1;
+
+        //Ingredients
+        this.ingredients.forEach(item => {
+            item.amount *= (newServings / this.servings);
+        });
+
+        this.servings = newServings;
     }
 }
