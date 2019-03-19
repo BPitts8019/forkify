@@ -1,6 +1,7 @@
 //models
 import Search from "./models/Search.js";
 import Recipe from "./models/Recipe";
+import List from "./models/List";
 
 //views
 import {DOM, renderLoader, clearLoader} from "./views/base.js";
@@ -115,3 +116,5 @@ DOM.recipe.addEventListener("click", event => {
     }
 });
 console.log("Application started.");
+
+window.l = new List();
