@@ -7,7 +7,7 @@ export const renderItem = item => {
             <input class="shopping__count--value" type="number" value="${item.amount}" step="${item.amount}">
             <p>${item.unit}</p>
         </div>
-        <p class="shopping__description">${item.ingredient}</p>
+        <p class="shopping__description">${item.name}</p>
         <button class="shopping__delete btn-tiny">
             <svg>
                 <use href="img/icons.svg#icon-circle-with-cross"></use>
@@ -21,5 +21,5 @@ export const renderItem = item => {
 
 export const deleteItem = id => {
     const listItem = document.querySelector(`[data-itemid="${id}"]`);
-    listItem.parentElement.removeChild(listItem);
+    if (listItem) listItem.parentElement.removeChild(listItem);
 }

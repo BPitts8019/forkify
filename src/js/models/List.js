@@ -5,12 +5,12 @@ export default class List {
         this.items = [];
     }
 
-    addItem (amount, unit, ingredient) {
+    addItem (amount, unit, name) {
         const item = {
             id: uniqid(),
             amount,
             unit,
-            ingredient
+            name
         }
 
         this.items.push(item);
@@ -23,6 +23,8 @@ export default class List {
     }
 
     updateAmount (id, newAmount) {
+        console.log(`Update Amount -->
+        id: ${id}, value: ${newAmount}`);
         this.items.find(item => item.id === id).amount = newAmount;
     }
 }

@@ -7,6 +7,7 @@ import List from "./models/List";
 import {DOM, renderLoader, clearLoader} from "./views/base.js";
 import * as searchView from "./views/searchView.js";
 import * as recipeView from "./views/recipeView.js";
+import * as listView from "./views/listView.js";
 
 /** Global app controller
  * - Search object
@@ -15,6 +16,7 @@ import * as recipeView from "./views/recipeView.js";
  * - Liked recipes
  */
 const APP = {};
+window.APP = APP;
 
 //*** private functions ***//
   //* Search Controller *//
@@ -86,6 +88,18 @@ const updateRecipe = async () => {
     }
 };
 
+  //* Shopping List Controller *//
+const updateShoppingList = () => {
+    //Create a new List if none exists
+    if (!APP.shoppingList) APP.shoppingList = new List();
+
+    //Add each ingredient to the list
+    APP.recipe.ingredients.forEach(ingredient => {
+        const item = APP.shoppingList.addItem(ingredient.amount, ingredient.unit, ingredient.name);
+        listView.renderItem(item);
+    });
+};
+
 //Setup Event Listeners
 window.addEventListener("hashchange", updateRecipe);
 window.addEventListener("load", updateRecipe);
@@ -113,8 +127,24 @@ DOM.recipe.addEventListener("click", event => {
     } else if (event.target.matches(".btn-increase, .btn-increase *")) {
         APP.recipe.updateServings("inc");
         recipeView.updateServingsIngredients(APP.recipe);
+    } else if (event.target.matches(".recipe__btn--add, .recipe__btn--add *")) {
+        updateShoppingList();
     }
 });
-console.log("Application started.");
 
-window.l = new List();
+DOM.shoppingList.addEventListener("click", event => {
+    const id = event.target.closest(".shopping__item").dataset.itemid;
+
+    //Handle the delete button
+    if (event.target.matches(".shopping__delete, .shopping__delete *")) {
+        APP.shoppingList.deleteItem(id);
+        listView.deleteItem(id);
+    } 
+    //Handle amount adjustments
+    else if (event.target.matches(".shopping__count--value")) { 
+        const value = Number.parseFloat(event.target.value);
+        APP.shoppingList.updateAmount(id, value);
+    }
+});
+
+console.log("Application started.");

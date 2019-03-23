@@ -28,7 +28,7 @@ const createIngredient = ingreObj => `
         <div class="recipe__count">${formatAmount(ingreObj.amount)}</div>
         <div class="recipe__ingredient">
             <span class="recipe__unit">${ingreObj.unit}</span>
-            ${ingreObj.ingredient}
+            ${ingreObj.name}
         </div>
     </li>
 `;
@@ -87,7 +87,7 @@ export const renderRecipe = recipe => {
                 ${recipe.ingredients.map(createIngredient).join("")}
             </ul>
 
-            <button class="btn-small recipe__btn">
+            <button class="btn-small recipe__btn recipe__btn--add">
                 <svg class="search__icon">
                     <use href="img/icons.svg#icon-shopping-cart"></use>
                 </svg>
